@@ -1,0 +1,14 @@
+[package]
+name = "meshvault-engine-test"
+version = "0.1.0"
+edition = "2021"
+description = "FakeEngine and the contract tests every MeshVault Engine must pass"
+license = "GPL-3.0-only"
+publish = false
+
+[dependencies]
+meshvault-engine = { version = "0.1.0", path = "../meshvault-engine" }
+tokio = { version = "1", features = ["sync", "time"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["sync", "time", "rt", "macros"] }

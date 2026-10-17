@@ -1,0 +1,10 @@
+[package]
+name = "meshvault-engine"
+version = "0.1.0"
+edition = "2021"
+description = "The Engine contract: what any MeshVault sync backend must do"
+license = "GPL-3.0-only"
+publish = false
+
+[dependencies]
+tokio = { version = "1", features = ["sync"] }
