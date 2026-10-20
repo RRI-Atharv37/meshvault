@@ -49,7 +49,7 @@ next. The app and the sync loop that ties the open crates together are closed.
 
 - [x] `Engine` contract and `FakeEngine` with contract tests
 - [x] Chunking and hashing: FastCDC and BLAKE3, with benchmarks
-- [ ] Folder index and scanner over a simulated filesystem, with path safety
+- [x] Folder index and scanner over a simulated filesystem, with path safety
 - [ ] Version vectors, conflict rules, signed updates, device roster and revocation
 - [ ] Write-ahead journal, crash recovery, atomic apply, trash and a mass-change guard
 - [ ] Encrypted transport over QUIC with resume and relay fallback

@@ -2,12 +2,22 @@
 
 All notable changes to the open MeshVault engine crates. Tags are `oss-vX.Y.Z`.
 
-## Unreleased
+## oss-v0.2.0
 
 ### Added
 
 - `meshvault-core`: BLAKE3 `Hash`, FastCDC chunking with 256 KiB / 1 MiB / 4 MiB bounds, `chunk_list_hash`,
   and the `Clock` trait with `SystemClock` and `FakeClock`.
+- `meshvault-core`: `RelPath`, the single path normaliser (NFC, case-insensitive `PathKey`, reserved names,
+  drive and UNC prefixes, `..`, control characters, length and depth limits).
+- `meshvault-core`: the `Fs` trait with `SimFs` (durable and volatile state, crash and fault injection) and
+  `WindowsFs` (local NTFS only; refuses other volumes, never follows links, durable moves).
+- `meshvault-core`: the per-folder SQLite `Index` (WAL, full sync, integrity check on open, folder and schema checks).
+- `meshvault-core`: `Scanner` and `check_folder`. A deletion is reported only under a directory that was
+  listed without error; permission, lock and read errors keep the old version. Files still being written are
+  deferred, and moves and case-only renames are detected.
+- `meshvault-core`: `IgnoreSet`, and a watcher layer (`Watch`, `ReconcileTimer`, `NotifyWatchSource`) where any
+  overflow or error triggers a full scan.
 
 ## oss-v0.1.1
 

@@ -56,3 +56,65 @@ impl Default for HashWriter {
         Self::new()
     }
 }
+
+fn write_hex(f: &mut fmt::Formatter<'_>, bytes: &[u8]) -> fmt::Result {
+    for b in bytes {
+        write!(f, "{b:02x}")?;
+    }
+    Ok(())
+}
+
+/// A device's Ed25519 public key. Displays as its first 8 hex characters.
+#[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub struct DeviceId(pub [u8; 32]);
+
+impl fmt::Display for DeviceId {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write_hex(f, &self.0[..4])
+    }
+}
+
+impl fmt::Debug for DeviceId {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        fmt::Display::fmt(self, f)
+    }
+}
+
+/// Identifies a team.
+#[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, Debug)]
+pub struct TeamId(pub [u8; 16]);
+
+/// The random identity stored in a folder's `folder.id` marker.
+#[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub struct FolderUid(pub [u8; 16]);
+
+impl FolderUid {
+    /// Lowercase hex, 32 characters.
+    pub fn to_hex(&self) -> String {
+        self.to_string()
+    }
+
+    /// Parses exactly 32 hex characters, either case.
+    pub fn from_hex(s: &str) -> Option<FolderUid> {
+        if s.len() != 32 || !s.is_ascii() {
+            return None;
+        }
+        let mut out = [0u8; 16];
+        for (i, byte) in out.iter_mut().enumerate() {
+            *byte = u8::from_str_radix(&s[2 * i..2 * i + 2], 16).ok()?;
+        }
+        Some(FolderUid(out))
+    }
+}
+
+impl fmt::Display for FolderUid {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write_hex(f, &self.0)
+    }
+}
+
+impl fmt::Debug for FolderUid {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        fmt::Display::fmt(self, f)
+    }
+}
