@@ -43,17 +43,27 @@ next. The app and the sync loop that ties the open crates together are closed.
 |---|---|
 | [`meshvault-engine`](meshvault-engine) | The `Engine` trait: peers, folders, status, events, errors, and the rules every implementation follows. |
 | [`meshvault-engine-test`](meshvault-engine-test) | `FakeEngine`, an in-memory engine, and the contract tests every `Engine` must pass. |
+| [`meshvault-core`](meshvault-core) | BLAKE3 hashing and FastCDC chunking (256 KiB / 1 MiB / 4 MiB), more building blocks to come. |
 
 ## Engine roadmap
 
 - [x] `Engine` contract and `FakeEngine` with contract tests
-- [ ] Chunking and hashing: FastCDC and BLAKE3, with benchmarks
+- [x] Chunking and hashing: FastCDC and BLAKE3, with benchmarks
 - [ ] Folder index and scanner over a simulated filesystem, with path safety
 - [ ] Version vectors, conflict rules, signed updates, device roster and revocation
 - [ ] Write-ahead journal, crash recovery, atomic apply, trash and a mass-change guard
 - [ ] Encrypted transport over QUIC with resume and relay fallback
 - [ ] Engine contract v2: held changes, trust updates and security alerts
 - [ ] Fuzzing, fault injection, an integrity gate and a published threat model
+
+## Chunking benchmark
+
+`cargo run -p meshvault-core --release --example bench_folder -- <dir>` chunks and hashes every file in a
+folder on one thread, reading from disk.
+
+| Data | Size | Time | Throughput | Chunks | Average chunk |
+|---|---|---|---|---|---|
+| 92 video files | 73.9 GB | 124.7 s | 593 MB/s | 57,915 | 1,247 KiB |
 
 ## Testing an engine
 

@@ -2,6 +2,13 @@
 
 All notable changes to the open MeshVault engine crates. Tags are `oss-vX.Y.Z`.
 
+## Unreleased
+
+### Added
+
+- `meshvault-core`: BLAKE3 `Hash`, FastCDC chunking with 256 KiB / 1 MiB / 4 MiB bounds, `chunk_list_hash`,
+  and the `Clock` trait with `SystemClock` and `FakeClock`.
+
 ## oss-v0.1.1
 
 ### Added
