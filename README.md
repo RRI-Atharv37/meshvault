@@ -33,6 +33,10 @@ raw backend errors never cross the trait.
 The split exists so that the part anyone could audit and reuse, the file-moving core, is open, while the
 product built around it stays closed.
 
+Today this repository holds the open contract and its test kit. The open `meshvault-core` (chunking,
+index, versions, signed updates, journal, trash) and `meshvault-net` (encrypted transport) crates come
+next. The app and the sync loop that ties the open crates together are closed.
+
 ## Crates
 
 | Crate | What it is |
@@ -43,14 +47,13 @@ product built around it stays closed.
 ## Engine roadmap
 
 - [x] `Engine` contract and `FakeEngine` with contract tests
-- [ ] Syncthing-backed engine (supervisor, REST client, event mapping)
-- [ ] Two-engine end-to-end test: a file on one device appears on another
 - [ ] Chunking and hashing: FastCDC and BLAKE3, with benchmarks
-- [ ] Signed manifests, diff and apply with atomic writes and path safety
-- [ ] Transport over QUIC with resume and relay fallback
-- [ ] Encryption and device keys
-- [ ] A native mesh engine behind the same trait
-- [ ] Fuzzing, fault injection and a published threat model
+- [ ] Folder index and scanner over a simulated filesystem, with path safety
+- [ ] Version vectors, conflict rules, signed updates, device roster and revocation
+- [ ] Write-ahead journal, crash recovery, atomic apply, trash and a mass-change guard
+- [ ] Encrypted transport over QUIC with resume and relay fallback
+- [ ] Engine contract v2: held changes, trust updates and security alerts
+- [ ] Fuzzing, fault injection, an integrity gate and a published threat model
 
 ## Testing an engine
 

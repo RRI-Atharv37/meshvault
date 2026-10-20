@@ -1,8 +1,7 @@
 //! The `Engine` contract.
 //!
 //! An engine moves files between trusted devices. The app talks only to this
-//! trait, so `SyncthingEngine` (Lite) and `MeshEngine` (Pro) are
-//! interchangeable. Every implementation must pass the same contract test
+//! trait, so backends are interchangeable. Every implementation must pass the same contract test
 //! suite in the `meshvault-engine-test` crate, including its in-memory
 //! `FakeEngine`.
 //!
@@ -30,8 +29,8 @@ use std::path::PathBuf;
 
 use tokio::sync::broadcast;
 
-/// Identity of a device. For Lite this is the backend's device ID, for Pro a
-/// public key. Treat it as opaque: compare it, never parse it.
+/// Identity of a device. For MeshVault's engine this is a device public key.
+/// Treat it as opaque: compare it, never parse it.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct PeerId(pub String);
 

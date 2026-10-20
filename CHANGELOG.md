@@ -2,7 +2,20 @@
 
 All notable changes to the open MeshVault engine crates. Tags are `oss-vX.Y.Z`.
 
-## oss-v0.1.0 (unreleased)
+## oss-v0.1.1
+
+### Added
+
+- `meshvault-engine-test`: `Fixtures` and the `fixtures:` form of the macro, so a real backend can describe
+  its peer ID shape, folder location and settle time.
+
+### Changed
+
+- Contract: a real backend may report `UpToDate` by itself after a scan. The tests wait for the engine to
+  go quiet and ignore `UpToDate` when comparing the states the caller asked for.
+- Docs and README describe the engine's direction and roadmap.
+
+## oss-v0.1.0
 
 First release: the engine contract and the tools to test it.
 
